@@ -129,7 +129,7 @@ div {
 
 .login_form {
 	height: 310px;
-	width: 406px;
+	width: 700px;
 	float: right;
 	margin-right: 50px;
 	margin-top: 50px;
@@ -142,9 +142,28 @@ div {
 }
 
 .login_box {
-	margin: 20px;
-	height: 260px;
-	width: 366px;
+	margin-left: 20px;
+	height: 310px;
+	width: 100%;
+}
+
+.login_table {
+	width: 680px;
+	height: 100%;
+}
+
+.login_table .login_msg_col {
+	text-align: left;
+	width: 410px;
+}
+
+.login_table .login_itxt_col {
+	width: auto;
+}
+
+.login_table .login_first_col {
+
+	width: 80px;
 }
 
 h1 {
@@ -179,11 +198,11 @@ h1 {
 	float: none;
 	font-family: "宋体";
 	font-size: 14px;
-	height: 18px;
+	height: auto;
 	line-height: 18px;
 	overflow: hidden;
 	padding: 10px 0 10px 10px;
-	width: 220px;
+	width: 100%;
 	border: 1px #e3e3e3 solid;
 }
 
@@ -219,11 +238,18 @@ h1 {
 	text-decoration: none;
 }
 
-.tit .errorMsg {
-	float: right;
+.errorMsg {
+
 	margin-left: 10px;
 	margin-top: 10px;
 	color: red;
+}
+
+.rightMsg {
+
+	margin-left: 10px;
+	margin-top: 10px;
+	color: green;
 }
 
 .tit {

@@ -1,21 +1,128 @@
-<!DOCTYPE html>
+
 <html>
 <head>
     <meta charset="UTF-8">
     <title>尚硅谷会员注册页面</title>
-    <link type="text/css" rel="stylesheet" href="../../static/css/style.css">
+    <base href="http://localhost/bookstore2/">
+    <link type="text/css" rel="stylesheet" href="static/css/style.css">
     <style type="text/css">
         .login_form {
             height: 420px;
             margin-top: 25px;
         }
-
     </style>
+    <script type="text/javascript" src="static/js/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var usernameMatcher = new RegExp("[0-9A-Za-z]{3,16}");
+            var passwordMatcher = new RegExp("[0-9A-Za-z]{8,16}");
+            var emailMatcher = new RegExp("^([0-9A-Za-z]+)@([0-9A-Za-z]+).com$");
+            //提交方法
+
+            // todo:提交方法尚未完成——————————未添加验证码检验功能
+            $("#sub_btn").click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                var repw = $("#repwd").val();
+                var email = $("#email").val();
+
+                if (repw != password || repw == "") {
+                    alert("1")
+                    return false;
+                }
+                if (!usernameMatcher.test(username)) {
+                    alert("2")
+                    return false;
+                }
+                if (!passwordMatcher.test(password)) {
+                    alert("3")
+                    return false;
+                }
+                if (!emailMatcher.test(email)) {
+                    alert("4")
+                    return false;
+                }
+                var json = {"username": username, "password": password};
+                $.getJSON("regist?method=regist", json, function (data) {
+                    //todo: 根据返回结果不同采取不同措施，注册成功则跳转到成功界面
+                    if (data.isSuccess == false) {
+                        alert(data.details);
+                        return false;
+                    }
+                })
+
+            })
+            //各行确认方法——————验证码未完成
+            $("#username").blur(function () {
+                var username = $(this).val();
+                var usernameMatcher = new RegExp("[0-9A-Za-z]{3,16}");
+                if (usernameMatcher.test(username)) {
+                    $("#usernameMsg").html("用户名格式正确");
+                    $("#usernameMsg").removeClass("errorMsg");
+                    $("#usernameMsg").addClass("rightMsg");
+                } else {
+                    $("#usernameMsg").html("格式不正确，请输入3-16位数字或字母");
+                    $("#usernameMsg").removeClass("rightMsg");
+                    $("#usernameMsg").addClass("errorMsg");
+                }
+            })
+            $("#password").blur(function () {
+                var password = $(this).val();
+                var passwordMatcher = new RegExp("[0-9A-Za-z]{8,16}");
+                if (passwordMatcher.test(password)) {
+                    $("#passwordMsg").html("密码格式正确");
+                    $("#passwordMsg").removeClass("errorMsg");
+                    $("#passwordMsg").addClass("rightMsg");
+                } else {
+                    $("#passwordMsg").html("格式不正确，请输入8-16位数字或字母");
+                    $("#passwordMsg").removeClass("rightMsg");
+                    $("#passwordMsg").addClass("errorMsg");
+                }
+            })
+            $("#repwd").blur(function () {
+                var password = $("#password").val();
+                if (password == "") {
+                    return false;
+                }
+                var repwd = $(this).val();
+                var matcher = new RegExp("^" + password + "$");
+                if (matcher.test(repwd)) {
+                    $("#passwordMsg2").html("两次一致");
+                    $("#passwordMsg2").removeClass("errorMsg");
+                    $("#passwordMsg2").addClass("rightMsg");
+                } else {
+                    $("#passwordMsg2").html("两次不一致");
+                    $("#passwordMsg2").removeClass("rightMsg");
+                    $("#passwordMsg2").addClass("errorMsg");
+                }
+            })
+            $("#email").blur(function () {
+                var email = $(this).val();
+                var emailMatcher = new RegExp("^([0-9A-Za-z]+)@([0-9A-Za-z]+).com");
+                if (emailMatcher.test(email)) {
+                    $("#eMailMsg").html("密码格式正确");
+                    $("#eMailMsg").removeClass("errorMsg");
+                    $("#eMailMsg").addClass("rightMsg");
+                } else {
+                    $("#eMailMsg").html("格式不正确，请输入8-16位数字或字母");
+                    $("#eMailMsg").removeClass("rightMsg");
+                    $("#eMailMsg").addClass("errorMsg");
+                }
+            })
+            // todo：验证码功能尚未完成
+            $("#code").blur(function () {
+
+            })
+        })
+    </script>
+
 </head>
 <body>
+<button></button>
 <div id="login_header">
-    <img class="logo_img" alt="" src="../../static/img/logo.gif">
+    <img class="logo_img" alt="" src="static/img/logo.gif">
 </div>
+
 
 <div class="login_banner">
 
@@ -26,38 +133,82 @@
     <div id="content">
         <div class="login_form">
             <div class="login_box">
-                <div class="tit">
-                    <h1>注册尚硅谷会员</h1>
-                    <span class="errorMsg"></span>
-                </div>
+
                 <div class="form">
-                    <form action="regist_success.html">
-                        <label>用户名称：</label>
-                        <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1"
-                               name="username" id="username"/>
-                        <br/>
-                        <br/>
-                        <label>用户密码：</label>
-                        <input class="itxt" type="password" placeholder="请输入密码" autocomplete="off" tabindex="1"
-                               name="password" id="password"/>
-                        <br/>
-                        <br/>
-                        <label>确认密码：</label>
-                        <input class="itxt" type="password" placeholder="确认密码" autocomplete="off" tabindex="1"
-                               name="repwd" id="repwd"/>
-                        <br/>
-                        <br/>
-                        <label>电子邮件：</label>
-                        <input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off" tabindex="1"
-                               name="email" id="email"/>
-                        <br/>
-                        <br/>
-                        <label>验证码：</label>
-                        <input class="itxt" type="text" style="width: 150px;" id="code"/>
-                        <img alt="" src="../../static/img/code.bmp" style="float: right; margin-right: 40px">
-                        <br/>
-                        <br/>
-                        <input type="submit" value="注册" id="sub_btn"/>
+                    <form action="pages/user/regist_success.html">
+                        <table style="background-color: white" class="login_table">
+                            <!--                            标题行-->
+                            <tr>
+                                <td colspan="3">
+                                    <div class="tit">
+                                        <h1>注册尚硅谷会员</h1>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!--                            用户名称行-->
+                            <tr>
+                                <td class="login_first_col"><label>用户名称：</label></td>
+                                <td class="login_itxt_col">
+                                    <input class="itxt" type="text" placeholder="请输入用户名" autocomplete="off" tabindex="1"
+                                           name="username" id="username"/>
+                                </td>
+                                <td class="login_msg_col">
+                                    <span id="usernameMsg" class="errorMsg"
+                                          style="text-align: left">请输入3-16位数字或字母</span>
+                                </td>
+                            </tr>
+                            <!--                            输入密码行-->
+                            <tr>
+                                <td class="login_first_col"><label>用户密码：</label></td>
+                                <td class="login_itxt_col">
+                                    <input class="itxt" type="password" placeholder="请输入密码" autocomplete="off"
+                                           tabindex="1" name="password" id="password"/>
+                                </td>
+                                <td>
+                                    <span id="passwordMsg" class="errorMsg"
+                                          style="text-align: left">请输入8-16位数字或字母</span>
+                                </td>
+                            </tr>
+                            <!--                            再次输入密码行-->
+                            <tr>
+                                <td class="login_first_col"><label>确认密码：</label></td>
+                                <td class="login_itxt_col">
+                                    <input class="itxt" type="password" placeholder="确认密码" autocomplete="off"
+                                           tabindex="1" name="repwd" id="repwd"/>
+                                </td>
+                                <td>
+                                    <span id="passwordMsg2" class="errorMsg" style="text-align: left"></span>
+                                </td>
+                            </tr>
+                            <!--                            邮箱行-->
+                            <tr>
+                                <td class="login_first_col"><label>电子邮件：</label></td>
+                                <td class="login_itxt_col">
+                                    <input class="itxt" type="text" placeholder="请输入邮箱地址" autocomplete="off"
+                                           tabindex="1"
+                                           name="email" id="email"/>
+                                </td>
+                                <td>
+                                    <span id="eMailMsg" class="errorMsg" style="text-align: left">请输入邮箱</span>
+                                </td>
+                            </tr>
+                            <!--                            验证码行-->
+                            <tr>
+                                <td class="login_first_col"><label>验证码：</label></td>
+                                <td class="login_itxt_col" valign="middle">
+                                    <input class="itxt" type="text" style="width: 170px;" id="code"/>
+                                    <img alt="" src="static/img/code.bmp" style="float: right; margin-right: 10px">
+                                </td>
+                                <td>
+                                    <span id="codeMsg" class="errorMsg" style="text-align: left"></span>
+                                </td>
+                            </tr>
+                            <!--                            提交行-->
+                            <tr>
+                                <td colspan="2"><input type="submit" value="注册" id="sub_btn"/></td>
+                                <td></td>
+                            </tr>
+                        </table>
 
                     </form>
                 </div>

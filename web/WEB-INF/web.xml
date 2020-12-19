@@ -6,4 +6,12 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <servlet>
+        <servlet-name>regist</servlet-name>
+        <servlet-class>cn.ricardowang.www.servlet.RegistServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>regist</servlet-name>
+        <url-pattern>/regist</url-pattern>
+    </servlet-mapping>
 </web-app>
