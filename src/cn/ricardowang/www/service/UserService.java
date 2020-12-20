@@ -8,6 +8,10 @@ import cn.ricardowang.www.utils.Result;
  * @Description: cn.ricardowang.www.service
  * @version: 1.0
  */
+//todo:用户登录检验
+//todo:用户注册检验
+//todo:
+//todo:
 public class UserService {
     public static Result regist(String username, String password) {
         //todo:检测username是否已经存在

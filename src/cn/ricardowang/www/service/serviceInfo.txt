@@ -1,0 +1,19 @@
+1.CartService
+    处理对cart中item的修改
+    调用CartDao中的静态方法存取cart信息
+    添加商品到购物车
+    购买所有商品——————先调用结账函数，后调用orderService将其添加到orders
+    购买单一物品——————交给Order处理
+    删除购物车中某一物品
+    清空购物车
+    修改购物车中某一物品数量——————为0删除
+
+
+2.OrderService
+    修改orders中项的信息————修改订单完成事件，订单位置，
+                               是否完成等信息（已完成订单将不在orders中记录）
+    调用OrderDao存取Orders信息
+    添加order——————住址，手机号码。。。。
+
+3.UserService
+    使用UserDao获取用户信息——————完成注册、登录、修改个人信息操作

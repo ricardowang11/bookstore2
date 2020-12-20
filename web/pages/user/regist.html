@@ -45,12 +45,13 @@
                 var json = {"username": username, "password": password};
                 $.getJSON("regist?method=regist", json, function (data) {
                     //todo: 根据返回结果不同采取不同措施，注册成功则跳转到成功界面
-                    if (data.isSuccess == false) {
-                        alert(data.details);
-                        return false;
+                    alert(data.isSuccess);
+                    if (data.isSuccess == true) {
+                        window.location.href = "pages/user/regist_success.html";
                     }
-                })
 
+                })
+                return false;
             })
             //各行确认方法——————验证码未完成
             $("#username").blur(function () {
@@ -100,11 +101,11 @@
                 var email = $(this).val();
                 var emailMatcher = new RegExp("^([0-9A-Za-z]+)@([0-9A-Za-z]+).com");
                 if (emailMatcher.test(email)) {
-                    $("#eMailMsg").html("密码格式正确");
+                    $("#eMailMsg").html("邮箱格式正确");
                     $("#eMailMsg").removeClass("errorMsg");
                     $("#eMailMsg").addClass("rightMsg");
                 } else {
-                    $("#eMailMsg").html("格式不正确，请输入8-16位数字或字母");
+                    $("#eMailMsg").html("格式不正确，请输入正确邮箱");
                     $("#eMailMsg").removeClass("rightMsg");
                     $("#eMailMsg").addClass("errorMsg");
                 }

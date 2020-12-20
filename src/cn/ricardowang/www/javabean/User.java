@@ -7,15 +7,21 @@ package cn.ricardowang.www.javabean;
  * @version: 1.0
  */
 public class User {
-    String account;
+    String username;
     String password;
+    String email;
+    String phoneNumber;
+    String address;
 
-    public String getAccount() {
-        return account;
+    String cartId;
+    String orderId;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -29,7 +35,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "account='" + account + '\'' +
+                "account='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
